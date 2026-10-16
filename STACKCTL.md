@@ -7,21 +7,27 @@ This project uses [stackctl](https://github.com/jreese/stackctl) for coordinated
 ### Prerequisites
 
 ```bash
-# Install stackctl (if not already installed)
-pip install stackctl
+# Dein stackctl hat andere Commands als Upstream
+# Verfügbare Commands: status, start, stop, restart, logs, install, delete, spec, repo-status, pull, push
 ```
 
-### Initialize All Repositories
+### Initialize All Repositories Manually
 
 ```bash
-# Clone/setup all sibling repositories defined in pyproject.toml
-stackctl init
+# Dein stackctl braucht nicht --init
+# Clone siblings manuell (wenn noch nicht lokal):
 
-# Or if you already have the repos locally:
-# stackctl init --verbose  # to see what it's doing
+cd /home/flow/dev_flow
+
+# Falls noch nicht geclont:
+git clone https://github.com/uvlightdrops/ki-core.git
+git clone https://github.com/uvlightdrops/kicli-code-assist.git
+git clone https://github.com/uvlightdrops/ki-knowledge.git
+git clone https://github.com/uvlightdrops/yaml-cfg-wizard.git yaml_cfg_wizard
+git clone https://github.com/uvlightdrops/widgetkit.git
+git clone https://github.com/uvlightdrops/widgetkit-django.git
+git clone https://github.com/uvlightdrops/yaml-cfg-wizard-ui.git yaml_cfg_wizard_ui
 ```
-
-## Workflow
 
 ### Install All Dependencies
 
@@ -29,30 +35,25 @@ stackctl init
 # Install main project and all siblings
 stackctl install
 
-# With optional dev tools
-stackctl install --extras dev
+# Note: stackctl install expects services to be defined
+# See: stack.yaml services section
 ```
 
-### Update All Projects
+### Available stackctl Commands
 
-```bash
-# Pull latest from all siblings
-stackctl update
-```
+Dein lokales stackctl unterstützt:
 
-### Deploy Stack
-
-```bash
-# Deploy using current configuration
-stackctl deploy
-```
-
-### Run Commands in All Repos
-
-```bash
-# Run same command across all siblings
-stackctl run pytest  # run tests in all projects
-stackctl run ruff check  # lint all projects
+- `stackctl status` - Zeige Stack-Status
+- `stackctl start [services]` - Starte Services
+- `stackctl stop [services]` - Stoppe Services
+- `stackctl restart [services]` - Starte Services neu
+- `stackctl logs [services]` - Zeige Logs
+- `stackctl install` - Installiere Stack
+- `stackctl delete [services]` - Lösche Services
+- `stackctl spec` - Zeige Stack-Spezifikation
+- `stackctl repo-status` - Zeige Repo-Status aller Siblings
+- `stackctl pull` - Pull alle Repos
+- `stackctl push` - Push alle Repos
 ```
 
 ## Configuration
