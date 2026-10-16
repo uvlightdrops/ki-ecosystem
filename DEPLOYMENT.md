@@ -56,7 +56,7 @@ Then on target hosts, within 5 minutes:
 
 Check polling logs on target host:
 ```bash
-tail -f ~/.ki-ecosystem/polling.log
+tail -f ~/dev_data/ki-ecosystem/log/polling.log
 ```
 
 Check systemd logs:

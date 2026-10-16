@@ -2,18 +2,13 @@
 # KI Ecosystem Auto-Pull Script for Polling CI/CD
 # Run via systemd timer every 5 minutes on target hosts
 # 
-# Setup on target host:
-#   sudo cp scripts/deploy-polling.sh /opt/
-#   sudo chmod +x /opt/deploy-polling.sh
-#   sudo cp scripts/ki-ecosystem-polling.{service,timer} /etc/systemd/system/
-#   sudo systemctl daemon-reload
-#   sudo systemctl enable --now ki-ecosystem-polling.timer
+# Logs to: ~/dev_data/ki-ecosystem/log/polling.log
 
 set -e
 
 # Configuration
 ECOSYSTEM_ROOT="/home/flow/dev_flow/ki-ecosystem"
-LOG_DIR="$HOME/.ki-ecosystem"
+LOG_DIR="$HOME/dev_data/ki-ecosystem/log"
 LOG_FILE="$LOG_DIR/polling.log"
 
 # Ensure log directory exists and is writable

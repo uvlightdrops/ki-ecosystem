@@ -12,8 +12,10 @@ set -e
 
 # Configuration
 DEV_FLOW_DIR="/home/flow/dev_flow"
+DEV_DATA_DIR="/home/flow/dev_data"
 ECOSYSTEM_REPO="https://github.com/uvlightdrops/ki-ecosystem.git"
 ECOSYSTEM_DIR="$DEV_FLOW_DIR/ki-ecosystem"
+LOG_DIR="$DEV_DATA_DIR/ki-ecosystem/log"
 
 echo "=== KI Ecosystem Polling Setup ==="
 
@@ -28,6 +30,14 @@ if [ ! -d "$DEV_FLOW_DIR" ]; then
     echo "Creating $DEV_FLOW_DIR"
     mkdir -p "$DEV_FLOW_DIR"
     chown flow:flow "$DEV_FLOW_DIR"
+fi
+
+# Create log directory if it doesn't exist
+if [ ! -d "$LOG_DIR" ]; then
+    echo "Creating $LOG_DIR"
+    mkdir -p "$LOG_DIR"
+    chown flow:flow "$LOG_DIR"
+    chmod 700 "$LOG_DIR"
 fi
 
 # Clone ki-ecosystem if it doesn't exist
@@ -75,7 +85,7 @@ echo "=== Setup Complete ==="
 systemctl status ki-ecosystem-polling.timer
 echo ""
 echo "Polling logs:"
-echo "  tail -f ~/.ki-ecosystem/polling.log"
+echo "  tail -f ~/dev_data/ki-ecosystem/log/polling.log"
 echo ""
 echo "Systemd logs:"
 echo "  journalctl -u ki-ecosystem-polling.service -f"
