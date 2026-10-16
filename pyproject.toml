@@ -38,8 +38,9 @@ dev = [
 ]
 audit = ["pip-audit>=2.7.0"]
 
-[tool.setuptools]
-packages = []
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ki_ecosystem"]
 
 [tool.stackctl]
 # Central stack config loader
