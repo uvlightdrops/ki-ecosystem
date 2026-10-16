@@ -7,8 +7,9 @@ Wants=network-online.target
 Type=oneshot
 User=flow
 Group=flow
-WorkingDirectory=%h/dev_flow/ki-ecosystem
-ExecStart=/bin/bash %h/dev_flow/ki-ecosystem/scripts/deploy-polling.sh
+WorkingDirectory=/home/flow/dev_flow/ki-ecosystem
+ExecStart=/bin/bash /home/flow/dev_flow/ki-ecosystem/scripts/deploy-polling.sh
 StandardOutput=journal
 StandardError=journal
 Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+
