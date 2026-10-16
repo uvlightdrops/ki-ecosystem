@@ -1,0 +1,13 @@
+[Unit]
+Description=KI Ecosystem Automated Pull Timer (every 5 minutes)
+Requires=ki-ecosystem-polling.service
+
+[Timer]
+# Run every 5 minutes
+OnBootSec=1min
+OnUnitActiveSec=5min
+# Optional: randomize start time to avoid thundering herd if multiple hosts
+RandomizedDelaySec=30
+
+[Install]
+WantedBy=timers.target

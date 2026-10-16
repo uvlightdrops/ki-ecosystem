@@ -1,0 +1,14 @@
+[Unit]
+Description=KI Ecosystem Automated Pull Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=flow
+Group=flow
+WorkingDirectory=%h/dev_flow/ki-ecosystem
+ExecStart=/bin/bash %h/dev_flow/ki-ecosystem/scripts/deploy-polling.sh
+StandardOutput=journal
+StandardError=journal
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
