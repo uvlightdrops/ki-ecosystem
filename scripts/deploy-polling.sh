@@ -39,8 +39,23 @@ log() {
     }
     log "Working directory: $(pwd)"
     
-    # Try to find stackctl
-    STACKCTL=$(which stackctl 2>/dev/null || echo "stackctl")
+    # Try to find stackctl - use full path
+    STACKCTL=$(which stackctl 2>/dev/null)
+    if [ -z "$STACKCTL" ]; then
+        # Common locations if which fails
+        for path in /home/flow/.local/bin/stackctl /usr/local/bin/stackctl /usr/bin/stackctl; do
+            if [ -x "$path" ]; then
+                STACKCTL="$path"
+                break
+            fi
+        done
+    fi
+    
+    if [ -z "$STACKCTL" ]; then
+        log "ERROR: stackctl not found in PATH"
+        exit 1
+    fi
+    
     log "Using stackctl: $STACKCTL"
     
     # Run stackctl pull
