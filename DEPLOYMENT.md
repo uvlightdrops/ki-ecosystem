@@ -32,6 +32,20 @@ The setup script will:
 4. **Django apps auto-reload** code (if they're running)
 5. **Logs** to `~/.ki-ecosystem/polling.log`
 
+## Shared Documentation
+
+Architecture documentation is centralized in `ki-ecosystem/docs/`:
+- `CLI_ARCHITECTURE_ROADMAP.md` - Hierarchical CLI structure across all projects
+- `IMPLEMENTATION_STATUS.md` - Phase progress tracking
+- `YAML_CONFIG_ARCHITECTURE.md` - Config lib tiers (yaml-cfg, yaml-cfg-wizard, UI layers)
+
+**For target hosts:** The setup script does NOT create symlinks (git clone via HTTPS doesn't follow symlinks). Instead, other projects should reference ki-ecosystem docs in their README or copy them locally.
+
+Example in kicli-assist README:
+```markdown
+See architecture docs in ki-ecosystem: ~/dev_flow/ki-ecosystem/docs/
+```
+
 ## Local Development Workflow
 
 On your dev machine:
