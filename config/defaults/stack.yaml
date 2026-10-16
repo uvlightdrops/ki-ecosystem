@@ -6,8 +6,11 @@
 # Services defined here are for reference/coordination only.
 
 stack:
-  # No actual services in meta-project - coordination only
-  services: {}
+  # Meta-project coordination service
+  services:
+    ecosystem:
+      host: localhost
+      description: "KI Ecosystem coordination (stackctl meta-project)"
   
   # Reference to ecosystem components
   ecosystem:

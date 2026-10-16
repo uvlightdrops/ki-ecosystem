@@ -43,9 +43,9 @@ where = ["."]
 include = ["ki_ecosystem"]
 
 [tool.stackctl]
-# For coordination purposes, reference the default stack config
-# This is a meta-project - actual deployments happen in sibling repos
-config_loader = "ki_core:load_config"
+# For coordination purposes, load the local stack config
+# ki-ecosystem is a meta-project - actual deployments happen in sibling repos
+config_loader = "ki_ecosystem:load_config"
 config_key = "stack"
 
 # All ecosystem projects as siblings

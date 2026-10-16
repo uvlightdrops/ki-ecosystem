@@ -15,5 +15,8 @@ ki-core/docs/IMPLEMENTATION_STATUS.md
 kicli-code-assist/docs/PHASE_2_SUMMARY.md
 """
 
+from ki_ecosystem.config import load_config
+
 __version__ = "0.1.0"
-__all__ = []
+__all__ = ["load_config"]
+
