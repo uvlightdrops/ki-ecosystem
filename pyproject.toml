@@ -43,10 +43,12 @@ where = ["."]
 include = ["ki_ecosystem"]
 
 [tool.stackctl]
+# For coordination purposes, reference the default stack config
+# This is a meta-project - actual deployments happen in sibling repos
+config_loader = "ki_core:load_config"
+config_key = "stack"
+
 # All ecosystem projects as siblings
-# Each app project has its own config_loader for deployment
-# ki-ecosystem coordinates: init, install, update, run
-# Actual deployment happens in individual app repositories
 [[tool.stackctl.siblings]]
 name = "ki-core"
 path = "ki-core"

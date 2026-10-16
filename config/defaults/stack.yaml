@@ -1,0 +1,44 @@
+# Stack configuration for ki-ecosystem meta-project
+#
+# This is a coordination-only stack. Actual deployment happens
+# in individual app repositories (kicli-assist, ki-knowledge, etc).
+#
+# Services defined here are for reference/coordination only.
+
+stack:
+  # No actual services in meta-project - coordination only
+  services: {}
+  
+  # Reference to ecosystem components
+  ecosystem:
+    - name: ki-core
+      description: Shared orchestration base
+      path: ../ki-core
+    - name: kicli-code-assist
+      description: Headless code assistant with TUI
+      path: ../kicli-code-assist
+    - name: ki-knowledge
+      description: Knowledge base system
+      path: ../ki-knowledge
+    - name: yaml-cfg-wizard
+      description: YAML config toolkit
+      path: ../yaml_cfg_wizard
+    - name: widgetkit
+      description: Framework-neutral widget rendering
+      path: ../widgetkit
+    - name: widgetkit-django
+      description: Django integration for widgetkit
+      path: ../widgetkit-django
+    - name: yaml-cfg-wizard-ui
+      description: Web UI for YAML config management
+      path: ../yaml_cfg_wizard_ui
+
+# Logging configuration
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Development settings
+development:
+  debug: false
+  reload: true
