@@ -2,23 +2,27 @@
 
 Automatic `git pull` on all target hosts every 5 minutes using systemd.
 
-## Setup on Target Host
+## One-Time Setup on Target Host
 
 ```bash
-# Copy scripts to system directories
-sudo cp /path/to/ki-ecosystem/scripts/deploy-polling.sh /opt/
-sudo chmod +x /opt/deploy-polling.sh
-
-sudo cp /path/to/ki-ecosystem/scripts/ki-ecosystem-polling.{service,timer} /etc/systemd/system/
-
-# Enable and start the timer
-sudo systemctl daemon-reload
-sudo systemctl enable --now ki-ecosystem-polling.timer
-
-# Verify it's running
-sudo systemctl status ki-ecosystem-polling.timer
-sudo systemctl list-timers ki-ecosystem-polling
+# Clone setup script and run it
+cd /tmp
+git clone https://github.com/uvlightdrops/ki-ecosystem.git
+sudo bash ki-ecosystem/scripts/setup-polling.sh
 ```
+
+Or if you already have ki-ecosystem cloned locally:
+
+```bash
+sudo bash ~/dev_flow/ki-ecosystem/scripts/setup-polling.sh
+```
+
+The setup script will:
+1. Clone ki-ecosystem repo to ~/dev_flow/ki-ecosystem (if not exists)
+2. Copy systemd service and timer to /etc/systemd/system/
+3. Run `systemctl daemon-reload`
+4. Enable and start the timer
+5. Show status and next steps
 
 ## How It Works
 
@@ -65,6 +69,27 @@ Check timer schedule:
 sudo systemctl list-timers ki-ecosystem-polling
 ```
 
+## Updating Setup
+
+When you change `deploy-polling.sh` or systemd files in ki-ecosystem repo:
+
+```bash
+# On target host:
+cd ~/dev_flow/ki-ecosystem
+git pull
+
+# Re-copy to systemd and reload
+sudo cp scripts/ki-ecosystem-polling.service /etc/systemd/system/
+sudo cp scripts/ki-ecosystem-polling.timer /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl restart ki-ecosystem-polling.timer
+```
+
+Or just run the setup script again:
+```bash
+sudo bash ~/dev_flow/ki-ecosystem/scripts/setup-polling.sh
+```
+
 ## Troubleshooting
 
 If pulling fails on a target host:
@@ -92,7 +117,7 @@ sudo systemctl disable ki-ecosystem-polling.timer
 
 ## Customization
 
-Edit `ki-ecosystem-polling.timer` to change interval:
+Edit `/etc/systemd/system/ki-ecosystem-polling.timer` to change interval:
 ```
 # Every 10 minutes instead:
 OnUnitActiveSec=10min
@@ -101,4 +126,8 @@ OnUnitActiveSec=10min
 OnUnitActiveSec=1min
 ```
 
-Then reload: `sudo systemctl daemon-reload && sudo systemctl restart ki-ecosystem-polling.timer`
+Then reload:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart ki-ecosystem-polling.timer
+```
