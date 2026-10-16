@@ -81,7 +81,7 @@ url = "https://github.com/uvlightdrops/widgetkit-django.git"
 
 [[tool.stackctl.siblings]]
 name = "yaml-cfg-wizard-ui"
-path = "yaml_cfg_wizard_ui"
+#path = "yaml_cfg_wizard_ui"
 url = "https://github.com/uvlightdrops/yaml-cfg-wizard-ui.git"
 
 
