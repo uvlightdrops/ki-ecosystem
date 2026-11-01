@@ -1,5 +1,11 @@
 # KI Ecosystem Architecture
 
+> Historical design context: phase claims and CLI examples below are not a
+> verified description of the current implementation. For session startup and
+> the installed stackctl interface, use [AGENTS.md](AGENTS.md) and
+> [STACKCTL.md](STACKCTL.md). The hub currently loads its own YAML directly,
+> without ki-core profile/stage resolution.
+
 ## Component Overview
 
 ```
@@ -103,7 +109,7 @@ Stackctl configuration in `pyproject.toml`:
 
 ```toml
 [tool.stackctl]
-config_loader = "ki_core:load_config"      # How to load deployment config
+config_loader = "ki_ecosystem:load_config" # Hub's own configuration loader
 config_key = "stack"                        # Which config section has deployment targets
 
 [[tool.stackctl.siblings]]                  # All related repos
@@ -113,12 +119,10 @@ url = "https://github.com/uvlightdrops/ki-core.git"
 # ... etc for all siblings
 ```
 
-This enables:
-- `stackctl init` - Clone all siblings
-- `stackctl install` - Install all with dependencies
-- `stackctl update` - Pull latest from all
-- `stackctl deploy` - Deploy stack based on config
-- `stackctl run <cmd>` - Execute command in all repos
+The installed tool uses `stackctl clone`, `stackctl install`, `stackctl pull`
+and `stackctl push` for repository coordination. `stackctl run SERVICE` runs one
+local service, not arbitrary commands across repositories. Service operations
+use the owning application's stack specification; see [STACKCTL.md](STACKCTL.md).
 
 ## Installation Scenarios
 
@@ -149,9 +153,9 @@ pip install -e ".[dev]"
 
 ```bash
 cd ki-ecosystem
-stackctl init
-stackctl install --venv --extras dev
-# Creates .venv in each repo, installs with dev tools
+stackctl clone
+STACKCTL_EXTRAS=dev stackctl install
+# Installs into the virtualenv running stackctl; does not create per-repo venvs.
 ```
 
 ## Configuration Management
@@ -196,6 +200,6 @@ Resolution order:
 ## See Also
 
 - [STACKCTL.md](STACKCTL.md) - Stackctl usage guide
-- [ki-core/docs/CLI_ARCHITECTURE_ROADMAP.md](../ki-core/docs/CLI_ARCHITECTURE_ROADMAP.md) - Detailed CLI design
-- [kicli-code-assist/docs/PHASE_2_SUMMARY.md](../kicli-code-assist/docs/PHASE_2_SUMMARY.md) - Phase 2 completion summary
-- [ki-core/docs/IMPLEMENTATION_STATUS.md](../ki-core/docs/IMPLEMENTATION_STATUS.md) - Per-project status
+- [CLI_ARCHITECTURE_ROADMAP.md](CLI_ARCHITECTURE_ROADMAP.md) - Detailed CLI design
+- [kicli-code-assist/docs/PHASE_2_SUMMARY.md](../../kicli-code-assist/docs/PHASE_2_SUMMARY.md) - Phase 2 completion summary
+- [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md) - Cross-project status

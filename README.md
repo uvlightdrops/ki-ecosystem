@@ -16,7 +16,20 @@ This ecosystem coordinates:
 
 ## Architecture
 
-See [CLI_ARCHITECTURE_ROADMAP.md](ki-core/docs/CLI_ARCHITECTURE_ROADMAP.md) for detailed architecture and Phase 2 implementation status.
+See [CLI_ARCHITECTURE_ROADMAP.md](docs/CLI_ARCHITECTURE_ROADMAP.md) for
+cross-project design context. Historical phase status must be checked against
+current implementation in the owning repository.
+
+## PyCharm / Copilot entry point
+
+Use this repository as the central entry point for cross-project work.
+[AGENTS.md](docs/AGENTS.md) contains the startup checklist, repository map and working
+boundaries; [.github/copilot-instructions.md](.github/copilot-instructions.md)
+points Copilot to those instructions. A single conversation helps continuity,
+but fresh sessions should reconstruct context from these files and current code.
+
+`[[tool.stackctl.siblings]]` in `pyproject.toml` is the repository registry.
+Sibling checkouts normally sit beside this repository, not inside it.
 
 ## Installation
 
@@ -30,30 +43,28 @@ pip install -e ".[dev]"
 
 ## Using stackctl
 
-This project is configured for [stackctl](https://github.com/jreese/stackctl) for coordinated multi-repo management:
+This project is configured for the locally installed `stackctl` tool for
+coordinated multi-repo management. See [STACKCTL.md](docs/STACKCTL.md) for path
+resolution, verified command semantics and installation boundaries.
 
 ```bash
-# Initialize all sibling repositories
-kistack init
-
-# Install all dependencies
-kistack install
-
-# Update all projects
-kistack update
-
-# Deploy with current stack configuration
-kistack deploy
+# Inspect supported commands
+stackctl --help
+# Fetch/prune remote-tracking refs and inspect status; no checkout or merge
+stackctl repo-status
 ```
+
+Clone, installation, synchronization and service operations are deliberate
+follow-up actions, not automatic session initialization.
 
 ## Development
 
 See individual project READMEs for development setup:
 
-- [ki-core/README.md](ki-core/README.md)
-- [kicli-code-assist/README.md](kicli-code-assist/README.md)
-- [ki-knowledge/README.md](ki-knowledge/README.md)
-- [yaml-cfg-wizard/README.md](yaml_cfg_wizard/README.md)
+- [ki-core/README.md](../ki-core/README.md)
+- [kicli-code-assist/README.md](../kicli-code-assist/README.md)
+- [ki-knowledge/README.md](../ki-knowledge/README.md)
+- [yaml-cfg-wizard/README.md](../yaml_cfg_wizard/README.md)
 
 ## License
 

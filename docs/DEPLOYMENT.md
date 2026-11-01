@@ -1,5 +1,8 @@
 # KI Ecosystem CI/CD via Polling
 
+Run the commands below from the repository root unless a command explicitly
+changes directory. See [STACKCTL.md](STACKCTL.md) for synchronization boundaries.
+
 Automatic `git pull` on all target hosts every 5 minutes using systemd.
 
 ## One-Time Setup on Target Host
