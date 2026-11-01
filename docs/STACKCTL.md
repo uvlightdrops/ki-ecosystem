@@ -1,3 +1,12 @@
+---
+project: ki-ecosystem
+agent_project: ki-ecosystem
+purpose: Stackctl operation
+created: null # Unknown
+updated: 2026-11-01
+update_reason: Verified tool interface
+---
+
 # Stackctl Integration for KI Ecosystem
 
 This repository is the central manifest for coordinated multi-repository work.

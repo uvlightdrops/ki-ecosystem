@@ -1,3 +1,12 @@
+---
+project: ki-ecosystem
+agent_project: ki-ecosystem
+purpose: Ecosystem entry point
+created: null # Unknown
+updated: 2026-11-01
+update_reason: Agent orientation
+---
+
 # KI Ecosystem
 
 Unified stack control and deployment for all KI system components.

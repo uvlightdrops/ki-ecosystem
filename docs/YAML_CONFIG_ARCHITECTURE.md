@@ -1,3 +1,13 @@
+---
+project: ki-ecosystem
+agent_project: ki-ecosystem
+purpose: Configuration tiers
+created: null # Unknown
+first_tracked: 2026-10-16
+updated: 2026-11-01
+update_reason: Link replacement strategy
+---
+
 # YAML Config Architecture: Libs and UI Tiers
 
 **Status:** Conceptual Architecture (Foundation for Phase 3)  
@@ -6,6 +16,11 @@
 ---
 
 ## Overview
+
+Current cross-project refactoring:
+[Explicit configuration section replacement](refactorings/CONFIG_SECTION_REPLACEMENT.md).
+This defines the implemented merge contract separately from the historical
+tier concepts below.
 
 YAML config management across ki-ecosystem is organized into **three tiers**:
 

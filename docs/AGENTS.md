@@ -1,3 +1,11 @@
+---
+project: ki-ecosystem
+agent_project: ki-ecosystem
+purpose: Reproducible session startup
+created: 2026-11-01
+updated: 2026-11-01
+---
+
 # Agent entry point: KI Ecosystem
 
 ## Purpose and scope
@@ -93,6 +101,13 @@ on that path. Do not substitute instructions for an unrelated upstream tool.
   documentation in `docs/` and implementation details in the owning project's
   `docs/`. The discovery file `.github/copilot-instructions.md` stays at its
   standard path and points here. Keep this entry point short and link detailed docs.
+- Start Markdown files with YAML front matter (`---`), not metadata tables.
+  Use `project`, `agent_project`, `purpose`, `created` and `updated`; keep values
+  and comments short. Use `created: null` for unknown dates and `first_tracked`
+  for Git evidence. Use `update_reason` for later changes, not as initial purpose.
+- Keep reports short and lookup-oriented, preferably a compact table of reason,
+  decision, evidence and remaining uncertainty. Link implementation details;
+  do not repeat them or add narrative progress logs.
 
 ## Change and deployment boundaries
 
