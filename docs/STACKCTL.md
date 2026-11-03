@@ -4,7 +4,7 @@ agent_project: ki-ecosystem
 purpose: Stackctl operation
 created: null # Unknown
 updated: 2026-11-01
-update_reason: Verified tool interface
+update_reason: Project-venv operation
 ---
 
 # Stackctl Integration for KI Ecosystem
@@ -89,6 +89,13 @@ Check `stackctl --help` again after tool updates.
 | `run SERVICE` | Run exactly one local service, not an arbitrary shell command |
 | `delete` | Delete services on minikube/k8s targets only |
 
+For preview without starting services, use `.venv/bin/python -m stackctl spec`
+from the application root. It runs the loader and displays the resolved services,
+not a start execution plan or stage-file provenance. There is no `start --dry-run`.
+The output may contain confidential environment/Kubernetes values.
+Stage-selection checks and preview limits:
+[stackctl preview guide](../../stackctl/doc/README.md#vorschau-ohne-dienststart).
+
 Targets are selected with `--target local|minikube|k8s`. `--json` supports
 `status`, `logs` without follow, and `projects`; JSON status/logs are local-only.
 
@@ -98,6 +105,13 @@ There is no installed `kistack` entry point here. Do not use the old examples
 Run tests directly in the owning project's environment.
 
 ## Installation and synchronization boundaries
+
+Use stackctl from the selected project's virtualenv, not a central
+`~/.local/bin/stackctl`. Prefer `.venv/bin/python -m stackctl` for automation;
+with the correct venv active, its `bin/stackctl` is equivalent. This hub uses
+`venv/` rather than `.venv/`. The tool is not installed in every project venv.
+Canonical guidance and the current integration gaps:
+[`stackctl/doc/README.md`](../../stackctl/doc/README.md).
 
 Installation is not a startup/orientation step. When explicitly requested:
 
@@ -111,6 +125,11 @@ Activating a project virtualenv does not override an executable's fixed shebang;
 check the selected executable/interpreter first. Installation can clone missing
 repositories, upgrades pip, installs editable packages and then normalizes
 dependency paths across repositories.
+
+The existing polling script still searches PATH/global locations and its
+systemd service does not put a project venv on PATH. Removing the central
+entry point therefore requires a separate launcher/polling migration;
+documentation changes alone do not make automated pulls work.
 
 Development extras are selected through `STACKCTL_EXTRAS=dev` or
 `[tool.stackctl].extras`, not a command-line `--extras` flag. Do not change the
