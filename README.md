@@ -4,7 +4,7 @@ agent_project: ki-ecosystem
 purpose: Ecosystem entry point
 created: null # Unknown
 updated: "2026-11-09 11"
-update_reason: Add Wissenswiki projects
+update_reason: Add Wissenswiki and ki-knowledge-next projects
 ---
 
 # KI Ecosystem
@@ -18,6 +18,7 @@ This ecosystem coordinates:
 - **ki-core** - Shared orchestration and CLI base for all apps
 - **kicli-code-assist** - Headless code assistant with TUI and diff preview
 - **ki-knowledge** - Knowledge base system with graph and ingestion
+- **ki-knowledge-next** - Fresh Django rebuild of ki-knowledge using Wissenswiki
 - **yaml-cfg-wizard** - Reusable YAML config resolution and validation toolkit
 - **widgetkit** - Framework-neutral widget rendering core
 - **widgetkit-django** - Django integration for widgetkit

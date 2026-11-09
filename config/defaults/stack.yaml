@@ -23,6 +23,9 @@ stack:
     - name: ki-knowledge
       description: Knowledge base system
       path: ../ki-knowledge
+    - name: ki-knowledge-next
+      description: Fresh Django rebuild of ki-knowledge using Wissenswiki
+      path: ../ki-knowledge-next
     - name: yaml-cfg-wizard
       description: YAML config toolkit
       path: ../yaml_cfg_wizard

@@ -65,6 +65,11 @@ path = "ki-knowledge"
 url = "https://github.com/uvlightdrops/ki-knowledge.git"
 
 [[tool.stackctl.siblings]]
+name = "ki-knowledge-next"
+path = "ki-knowledge-next"
+url = "https://github.com/uvlightdrops/ki-knowledge-next.git"
+
+[[tool.stackctl.siblings]]
 name = "yaml-cfg-wizard"
 path = "yaml_cfg_wizard"
 url = "https://github.com/uvlightdrops/yaml-cfg-wizard.git"

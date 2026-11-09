@@ -4,7 +4,7 @@ agent_project: ki-ecosystem
 purpose: Reproducible session startup
 created: 2026-11-01
 updated: "2026-11-09 11"
-update_reason: Register Wissenswiki Git repositories
+update_reason: Register Wissenswiki and ki-knowledge-next repositories
 ---
 
 # Agent entry point: KI Ecosystem
@@ -67,6 +67,7 @@ Re-read the manifest before using them.
 | `ki-core` | `ki-core` | Shared orchestration and CLI base |
 | `kicli-code-assist` | `kicli-code-assist` | Code assistant application |
 | `ki-knowledge` | `ki-knowledge` | Knowledge application |
+| `ki-knowledge-next` | `ki-knowledge-next` | Django rebuild of ki-knowledge using Wissenswiki |
 | `yaml-cfg-wizard` | `yaml_cfg_wizard` | Standalone YAML configuration toolkit |
 | `widgetkit` | `widgetkit` | Framework-neutral widget rendering |
 | `widgetkit-django` | `widgetkit-django` | Django widget integration |
