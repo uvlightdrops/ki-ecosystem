@@ -3,8 +3,8 @@ project: ki-ecosystem
 agent_project: ki-ecosystem
 purpose: Ecosystem entry point
 created: null # Unknown
-updated: 2026-11-01
-update_reason: Agent orientation
+updated: "2026-11-09 11"
+update_reason: Add Wissenswiki projects
 ---
 
 # KI Ecosystem
@@ -22,6 +22,8 @@ This ecosystem coordinates:
 - **widgetkit** - Framework-neutral widget rendering core
 - **widgetkit-django** - Django integration for widgetkit
 - **yaml-cfg-wizard-ui** - Web UI for YAML config management
+- **wissenswiki-core** - Knowledge blocks, typed relations and standalone web app
+- **wissenswiki-django** - Reusable Django app for Markdown knowledge blocks
 
 ## Architecture
 

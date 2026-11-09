@@ -3,7 +3,8 @@ project: ki-ecosystem
 agent_project: ki-ecosystem
 purpose: Reproducible session startup
 created: 2026-11-01
-updated: 2026-11-01
+updated: "2026-11-09 11"
+update_reason: Register Wissenswiki Git repositories
 ---
 
 # Agent entry point: KI Ecosystem
@@ -70,6 +71,11 @@ Re-read the manifest before using them.
 | `widgetkit` | `widgetkit` | Framework-neutral widget rendering |
 | `widgetkit-django` | `widgetkit-django` | Django widget integration |
 | `yaml-cfg-wizard-ui` | `yaml-cfg-wizard-ui` | Configuration web UI |
+| `wissenswiki-core` | `wissenswiki-core` | Knowledge blocks and standalone web app |
+| `wissenswiki-django` | `wissenswiki-django` | Reusable Django knowledge-block app |
+
+Both Wissenswiki projects are Git repositories with HTTPS clone URLs configured
+in the sibling manifest.
 
 The installed tool currently resolves its source directory in this order:
 `STACKCTL_SRC_DIR`, `[tool.stackctl].src_dir`, the parent of the ecosystem root.

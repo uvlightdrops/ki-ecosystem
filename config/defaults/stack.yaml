@@ -35,6 +35,12 @@ stack:
     - name: yaml-cfg-wizard-ui
       description: Web UI for YAML config management
       path: ../yaml_cfg_wizard_ui
+    - name: wissenswiki-core
+      description: Knowledge blocks, typed relations and standalone web app
+      path: ../wissenswiki-core
+    - name: wissenswiki-django
+      description: Reusable Django app for Markdown knowledge blocks
+      path: ../wissenswiki-django
 
 # Logging configuration
 logging:
