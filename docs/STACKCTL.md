@@ -3,8 +3,8 @@ project: ki-ecosystem
 agent_project: ki-ecosystem
 purpose: Stackctl operation
 created: null # Unknown
-updated: 2026-11-01
-update_reason: Project-venv operation
+updated: "2026-11-09 01"
+update_reason: Local service and port audit
 ---
 
 # Stackctl Integration for KI Ecosystem
@@ -158,3 +158,45 @@ Git synchronization alone does not verify application reload or deployment healt
 
 These documents capture design and historical phase status. Verify current
 implementation in the owning repository before treating planned work as complete.
+
+## Local service and port audit [local-service-audit]
+
+`scripts/service_audit.py` combines stackctl's local JSON status with Linux
+`ss` TCP/UDP socket owners. It visits the hub and every manifest sibling using
+stackctl's path resolution. Run it with the hub interpreter, which must have
+stackctl installed; stackctl resolves application configuration through each
+project's own interpreter.
+
+```bash
+venv/bin/python scripts/service_audit.py
+# Include unrelated/unknown host listeners as well:
+venv/bin/python scripts/service_audit.py --all-ports
+# Preview a specific PID from the report:
+venv/bin/python scripts/service_audit.py --cleanup-pid <PID>
+# Explicitly send SIGTERM to that selected, eligible PID:
+venv/bin/python scripts/service_audit.py --cleanup-pid <PID> --apply
+```
+
+The report shows configured service addresses, stackctl status, actual listener
+PIDs and working directories. A port shared by incompatible service definitions
+is not fixed by killing its healthy owner. An unassigned listener or an
+`unhealthy` status is only a review candidate, not proof of a hung process.
+Ports without visible owners cannot be cleaned up; `--all-ports` also exposes
+listeners that cannot be associated with the ecosystem.
+
+Cleanup is restricted to explicitly selected PIDs owned by the current user
+whose working directory is inside a manifest checkout. Healthy services,
+external/Compose services, detected systemd/Supervisor services and projects
+with unknown status are protected. Before each cleanup, status and sockets
+are rescanned. Linux pidfds prevent signaling a reused PID; only SIGTERM is
+sent, without process-group termination or automatic SIGKILL. The script
+checks whether the previous listener addresses disappear, including cases
+where another process shares or reopens the socket. Use the owning project's
+normal `stackctl stop SERVICE` for intentional shutdown of healthy services.
+
+This is a local-host audit, not a remote cluster or all-stage inventory. Missing
+stack definitions and failed configuration loaders are reported per project;
+exit code 1 means an incomplete audit or unsuccessful cleanup, and 2 means
+an overall execution error. No source configuration is rewritten and no
+services are started. The underlying stackctl status command can remove stale
+local PID records as part of its existing status inspection.
