@@ -5,6 +5,7 @@ scope: architecture
 purpose: Gemeinsamer Pfadbetrieb der Webanwendungen auf Uberspace 7 und 8
 created: "2026-11-10 20"
 updated: "2026-11-10 20"
+update_reason: Oeffentlichen Wissenswiki-Zugriff mit HTTPS und Basisauthentifizierung spezifiziert
 status: draft
 semantic_blocks: [hosting-goal, hosting-inventory, prefix-contract, platform-operation, implementation-order, hosting-references]
 relations:
@@ -14,6 +15,9 @@ relations:
   - target: ../STACKCTL.md
     type: reference
     reason: Dienstverwaltung und operative Grenzen
+  - target: ../../../wissenswiki-core/doc/USAGE.md
+    type: reference
+    reason: Startoptionen und Zugriffsschutz des Solo-Wikis
 ---
 
 # Webhosting unter gemeinsamen Pfaden
@@ -38,17 +42,23 @@ festzulegen.
 | `/knowledge/` | `ki-knowledge` | Django/Wagtail; U7-/U8-Stages vorhanden, Deployment bisher auf Domainwurzel ausgelegt |
 | `/knowledge-next/` | `ki-knowledge-next` | Eigenstaendige Django-Site; Praefixbetrieb und Produktionskonfiguration vorbereiten |
 | `/assist/` | `kicli-code-assist` | Flask, gebautes Webfrontend und Socket.IO gemeinsam praefixfaehig machen |
-| `/wiki/` | Optionales separates Wissenswiki | Vorzugsweise Django-Host; Solo-Server nicht unveraendert veroeffentlichen |
+| `/wiki/` | Optionales separates Wissenswiki | Solo-App braucht HTTPS-Origin und HTTP-Basisauthentifizierung; `/wiki/` setzt noch Basispfad-Unterstuetzung voraus |
 
 `yaml-cfg-wizard-ui` ist ein eingebetteter Renderer, kein eigener Webdienst.
 WidgetKit und `wissenswiki-django` sind ebenfalls Bausteine der Host-Anwendungen.
 Ein zusaetzliches Wiki ist nicht erforderlich, wenn die gewuenschten Funktionen
 bereits in einer der Knowledge-Sites eingebunden sind.
 
-Der Solo-Server in `wissenswiki-core/web.py` ist fuer localhost bzw. ein
-vertrautes LAN ausgelegt. Seine Host-/Origin-Pruefung erwartet numerische
-Serveradressen bzw. localhost und ist kein fertiges oeffentliches
-HTTPS-Proxy-Deployment.
+Der Solo-Server in `wissenswiki-core/web.py` bleibt standardmaessig auf
+localhost bzw. ein vertrautes LAN begrenzt. Fuer ein Uberspace-Webbackend
+erfordert der oeffentliche Modus eine explizite HTTPS-Origin und
+HTTP-Basisauthentifizierung. Der Dienst lauscht dann auf `0.0.0.0`; das
+Uberspace-Frontend stellt HTTPS bereit und leitet den Host-Header weiter. Die
+Zugangsdaten muessen als `WISSENSWIKI_AUTH_USERNAME` und
+`WISSENSWIKI_AUTH_PASSWORD` in der Prozessumgebung liegen, nie in der
+eingecheckten Wiki-Konfiguration. Der Basisschutz ist ein gemeinsames Konto,
+keine Benutzer- oder Rollenverwaltung; der Solo-Server begrenzt
+fehlgeschlagene Anmeldeversuche nicht.
 
 ## Verbindlicher Praefixvertrag [prefix-contract]
 
@@ -109,6 +119,8 @@ historischen Polling-Beispielen ungeprueft auf Uberspace uebernehmen.
 ## Umsetzung und Abnahme [implementation-order]
 
 1. Zu veroeffentlichende Sites, Pfadnamen und Zugangsschutz entscheiden.
+   Fuer das Solo-Wissenswiki Basisauthentifizierung aktivieren; vor einer
+   `/wiki/`-Unterpfadroute zusaetzlich Basispfad-Unterstuetzung pruefen.
 2. Eine Django-Site als Referenz fuer den Praefixbetrieb waehlen; vorhandene
    Deployment-Pruefungen einschliesslich Wagtail-Basis-URL und Asset-Pfaden
    anpassen, statt nur Proxy-Regeln hinzuzufuegen.
@@ -119,6 +131,9 @@ historischen Polling-Beispielen ungeprueft auf Uberspace uebernehmen.
 5. Je Zielhost Backend-Regeln, Prozessverwaltung, Portbelegung, Neustart und
    parallelen Zugriff abnehmen. Ressourcenbedarf messen, nicht aus der Anzahl
    ausgecheckter Repositories ableiten.
+
+Die [Wissenswiki-Anleitung](../../../wissenswiki-core/doc/USAGE.md) dokumentiert
+den oeffentlichen Startmodus und dessen Umgebungsvariablen.
 
 ## Quellen [hosting-references]
 
