@@ -3,8 +3,8 @@ project: ki-ecosystem
 agent_project: ki-ecosystem
 purpose: Ecosystem entry point
 created: null # Unknown
-updated: "2026-11-09 11"
-update_reason: Add Wissenswiki and ki-knowledge-next projects
+updated: "2026-11-10 20"
+update_reason: Link shared-path webhosting concept
 ---
 
 # KI Ecosystem
@@ -31,6 +31,9 @@ This ecosystem coordinates:
 See [CLI_ARCHITECTURE_ROADMAP.md](docs/CLI_ARCHITECTURE_ROADMAP.md) for
 cross-project design context. Historical phase status must be checked against
 current implementation in the owning repository.
+
+For the proposed shared-path deployment on Uberspace 7 and 8, see
+[Webhosting](docs/architecture/WEB_HOSTING.md).
 
 ## PyCharm / Copilot entry point
 
